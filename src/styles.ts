@@ -18,7 +18,7 @@ export const Title = styled.h3`
 `;
 
 export const Text = styled.p`
-    font-size: ${sizeM}
+    font-size: ${sizeM};
 `;
 
 export const URL = styled.a`
