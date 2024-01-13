@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    // Specifies the version of ECMAScript (JavaScript) that the compiled code should be compatible with.
+    "target": "es5",
+    // Specifies the libraries that should be available to the code during compilation.
+    "lib": ["dom", "dom.iterable", "esnext"],
+    // Allows the use of JavaScript files alongside TypeScript files.
+    "allowJs": true,
+    // Skips type checking of all declaration files (*.d.ts).
+    "skipLibCheck": true,
+    // Enables compatibility with modules that use default exports.
+    "esModuleInterop": true,
+    // Allows importing modules that don't have a default export as if they did have one.
+    "allowSyntheticDefaultImports": true,
+    // Enables strict type checking and additional type inference rules.
+    "strict": true,
+    // Requires all imported module file names to use consistent casing.
+    "forceConsistentCasingInFileNames": true,
+    // Raises an error when a switch statement case falls through without a break or return statement.
+    "noFallthroughCasesInSwitch": true,
+    // Specifies the module system for the compiled code (ES modules in this case).
+    "module": "esnext",
+    // Specifies how module dependencies should be resolved.
+    "moduleResolution": "node",
+    // Allows importing JSON files as modules.
+    "resolveJsonModule": true,
+    // Enables the transpilation of each file as a separate module.
+    "isolatedModules": true,
+    // Prevents TypeScript from emitting any output files.
+    "noEmit": true,
+    // Specifies the syntax for JSX in React components.
+    "jsx": "react-jsx"
+  },
+  // The "include": ["src"] option specifies that only the files in the "src" directory should be included in the compilation process.
+  "include": ["src"]
+}
