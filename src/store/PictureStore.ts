@@ -22,12 +22,18 @@ class PictureStore {
     });
   }
 
-  addPicture(picture: Picture) {
-    this.pictures.push(picture);
+  async addPicture(file: any) {
+    await axios.post(`${backendUrl}/gallery/add`, file);
+    const pics = await axios.get<Picture[]>(`${backendUrl}/gallery`);
+    this.pictures = pics.data;
   }
 
-  deletePicture(id: number) {
-    this.pictures = this.pictures.filter((picture) => picture.id !== id);
+  async deletePicture(url: string) {
+    console.log('in');
+    await axios.post(`${backendUrl}/gallery/remove`, { url });
+    const picter = this.pictures.filter((pict: any) => pict[2] !== url);
+    this.pictures = picter;
+    console.log('out');
     }
     
     async fetchPictures() {

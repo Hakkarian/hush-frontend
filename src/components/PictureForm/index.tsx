@@ -1,3 +1,3 @@
-import AddPictureForm from "./PictureForm";
+import PictureForm from "./PictureForm";
 
-export default AddPictureForm;
+export default PictureForm;

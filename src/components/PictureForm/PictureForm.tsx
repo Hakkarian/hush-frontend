@@ -1,22 +1,22 @@
 // src/components/AddPictureForm.tsx
-import React, { useState } from "react";
-import axios from "axios";
+import React, { ChangeEvent, useState } from "react";
 import pictureStore from "../../store/PictureStore";
 
 const PictureForm: React.FC = () => {
-  const [cloudinaryUrl, setCloudinaryUrl] = useState("");
-  const [cloudinaryId, setCloudinaryId] = useState("");
+  const [image, setImage] = useState<null | File>(null);
+
+  console.log('image', image);
 
   const handleAddPicture = async () => {
     try {
-      const response = await axios.post("your_backend_api_url", {
-        cloudinaryUrl,
-        cloudinaryId,
-      });
-      const newPicture = response.data;
-      pictureStore.addPicture(newPicture);
-      setCloudinaryUrl("");
-      setCloudinaryId("");
+      const picture = new FormData();
+      console.log('before')
+      if (image !== null) {
+        console.log('inside')
+        picture.append("image", image);
+      }
+      console.log('after')
+      await pictureStore.addPicture(picture);
     } catch (error) {
       console.error("Error adding picture:", error);
     }
@@ -25,23 +25,13 @@ const PictureForm: React.FC = () => {
   return (
     <div>
       <h2>Add Picture</h2>
-      <label>
-        Cloudinary URL:
-        <input
-          type="text"
-          value={cloudinaryUrl}
-          onChange={(e) => setCloudinaryUrl(e.target.value)}
-        />
-      </label>
-      <label>
-        Cloudinary ID:
-        <input
-          type="text"
-          value={cloudinaryId}
-          onChange={(e) => setCloudinaryId(e.target.value)}
-        />
-      </label>
-      <button onClick={handleAddPicture}>Add Picture</button>
+      <input type="file" name="image" onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+          if (file) {
+            setImage(file)
+          }
+      }} />
+      <button type="button" onClick={handleAddPicture}>Add Picture</button>
     </div>
   );
 };

@@ -9,7 +9,6 @@ export const Wrapper = styled.div`
     display: flex;
     margin: 0 auto;
     padding: 0 2rem;
-    border: solid 1px grey;
 `;
 
 export const Title = styled.h3`
