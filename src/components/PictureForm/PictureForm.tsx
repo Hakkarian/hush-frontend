@@ -1,6 +1,7 @@
 // src/components/AddPictureForm.tsx
 import React, { ChangeEvent, useState } from "react";
 import pictureStore from "../../store/PictureStore";
+import ImageSearch from "../ImageSearch";
 
 const PictureForm: React.FC = () => {
   const [image, setImage] = useState<null | File>(null);
@@ -25,6 +26,7 @@ const PictureForm: React.FC = () => {
   return (
     <div>
       <h2>Add Picture</h2>
+      <ImageSearch />
       <input type="file" name="image" onChange={(e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
           if (file) {

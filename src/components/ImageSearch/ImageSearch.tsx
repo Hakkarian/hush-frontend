@@ -1,12 +1,16 @@
 import React from 'react'
+import { ImageSearchCss } from './ImageSearch.styled'
+import DropFileInput from '../DropFileInput'
 
 const ImageSearch = () => {
 
-    const handleSearch = () => {
-        
+    const onFileChange = (files: File[]) => {
+        console.log('here it comes', files)
     }
-  return (
-    <div>ImageSearch</div>
+  return (<>
+    <ImageSearchCss><div className="box">Drag & Drop files here ;)</div></ImageSearchCss>
+    <DropFileInput onFileChange={(files:File[]) => onFileChange(files)} />
+    </>
   )
 }
 
