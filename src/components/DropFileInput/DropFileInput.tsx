@@ -27,6 +27,10 @@ const DropFileInput: FC<IDropFileInput> = ({onFileChange}) => {
         }
     }
 
+  const onSearchSimilar = () => {
+    
+  }
+
     const handleDelete = (file: File) => {
         const updatedList = [...fileList];
         updatedList.splice(fileList.indexOf(file), 1)
