@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const DropFileInputCss = styled.div`
   .drop-file-input {
     position: relative;
-    height: 200px;
+    height: 50px;
 
     margin-bottom: 20px;
 
@@ -38,8 +38,7 @@ export const DropFileInputCss = styled.div`
     top: 0;
     left: 0;
 
-    width: 100%;
-    height: 100%;
+
     cursor: pointer;
   }
   .drop-file-input__label {

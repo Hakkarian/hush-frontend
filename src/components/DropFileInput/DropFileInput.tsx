@@ -1,13 +1,13 @@
 import React, { ChangeEvent, FC, useRef, useState } from 'react'
 import { DropFileInputCss } from './DropFileInput.styled'
-
-import uploadImg from 'images/cloud-upload-regular-240.png';
-import { imageConfig } from 'components/ImageSearch/ImageConfig';
+import { imageConfig } from 'utils/imageConfig';
 
 interface IDropFileInput {
-    onFileChange: Function
+  onFileChange: Function
+  size: number,
+  uploadImg: string
 }
-const DropFileInput: FC<IDropFileInput> = ({onFileChange}) => {
+const DropFileInput: FC<IDropFileInput> = ({onFileChange, size, uploadImg}) => {
 
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -18,7 +18,7 @@ const DropFileInput: FC<IDropFileInput> = ({onFileChange}) => {
     const onDragLeave = () => wrapperRef.current?.classList.remove("dragover");
     const onDrop = () => wrapperRef.current?.classList.remove("dragover");
 
-    const onFileDrop = (e: ChangeEvent<HTMLInputElement>) => {
+    const onFileDrop = async (e: ChangeEvent<HTMLInputElement>) => {
         const newFile = e.target.files?.[0]
         if (newFile) {
             const updatedList = [...fileList, newFile];
@@ -26,10 +26,6 @@ const DropFileInput: FC<IDropFileInput> = ({onFileChange}) => {
             onFileChange(updatedList);
         }
     }
-
-  const onSearchSimilar = () => {
-    
-  }
 
     const handleDelete = (file: File) => {
         const updatedList = [...fileList];
@@ -46,9 +42,10 @@ const DropFileInput: FC<IDropFileInput> = ({onFileChange}) => {
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
+        style={{ width: `${size}%`, height: `${size}%`}}
       >
         <div className="drop-file-input__label">
-          <img src={uploadImg} alt="upload" />
+          <img src={uploadImg} width={`${size / 1.2}%`} alt="upload" />
         </div>
         <input type="file" value="" onChange={onFileDrop} />
       </div>
@@ -70,9 +67,14 @@ const DropFileInput: FC<IDropFileInput> = ({onFileChange}) => {
                 <div className="drop-file-preview__item__info">
                   <p>{item.name}</p>
                   <p>{item.size}</p>
-                    </div>
-                    <button type='button' className="drop-file-preview__item__del" onClick={(() => handleDelete(item))} >x</button>
-
+                </div>
+                <button
+                  type="button"
+                  className="drop-file-preview__item__del"
+                  onClick={() => handleDelete(item)}
+                >
+                  x
+                </button>
               </li>
             ))}
           </ul>
