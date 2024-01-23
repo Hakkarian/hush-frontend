@@ -1,5 +1,5 @@
 // src/stores/PictureStore.ts
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import { observable, action, makeObservable } from "mobx";
 
 export interface Picture {
@@ -8,15 +8,21 @@ export interface Picture {
   cloudinaryId: string;
 }
 
+export interface Similar {
+  url: string;
+  cloudinaryId: string;
+}
+
 const backendUrl = process.env.REACT_APP_API_URL;
 
 class PictureStore {
   pictures: Picture[] = [];
-  similar: string[] = [];
+  similar: {url: string, id: string}[] = [];
 
   constructor() {
     makeObservable(this, {
       pictures: observable,
+      similar: observable,
       addPicture: action,
       deletePicture: action,
       fetchPictures: action,
@@ -42,13 +48,20 @@ class PictureStore {
     console.log("out");
   }
 
+  async deleteSimilarPics(public_id: string) {
+    await axios.post(`${backendUrl}/gallery/return`, { public_id });
+    const picter = this.similar.filter((pict: any) => pict.id !== public_id)
+    this.similar = picter;
+  }
+
   async searchSimilar(file: File) {
-    const pics = await axios.post<string[]>(
+    const formData = new FormData()
+    formData.append("image", file)
+    const pics = await axios.post<File>(
       `${backendUrl}/gallery/similar`,
-      file
+      formData
     );
-    const images = pics.data.map(pic => `data:image/jpeg;base64,${atob(pic)}`)
-    console.log('imgs hehes', images)
+    this.similar = pics.data as unknown as {url: string, id: string}[];
   }
 }
 

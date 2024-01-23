@@ -24,17 +24,36 @@ const Gallery: React.FC = observer(() => {
     <div>
       <h2>Picture List</h2>
       <ul>
-        {pics.map((picture: any) => (
-          <li key={picture[0]}>
-            <img src={picture[2]} alt={picture[1]} width="300" />
-            <button
-              onClick={async () => await pictureStore.deletePicture(picture[1])}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-        <div ref={bottomRef} style={{ position: 'absolute', bottom: '0', height: "10px" }} />
+        {sims.length === 0 &&
+          pics.map((picture: any) => (
+            <li key={picture[0]}>
+              <img src={picture[2]} alt={picture[1]} width="300" />
+              <button
+                onClick={async () =>
+                  await pictureStore.deletePicture(picture[1])
+                }
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        {
+          sims.map((sim: {url: string, id: string}) => (
+            <li key={sim.id}>
+              <img src={sim.url} alt={sim.id} width="300" />
+              <button
+                onClick={async () =>
+                  await pictureStore.deleteSimilarPics(sim.id)
+                }
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        <div
+          ref={bottomRef}
+          style={{ position: "absolute", bottom: "0", height: "10px" }}
+        />
       </ul>
     </div>
   );
