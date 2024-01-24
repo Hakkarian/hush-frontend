@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import pictureStore from "../../store/PictureStore";
+import { GalleryCss } from "./Gallery.styled";
+import Loader from "components/Loader";
 
 const Gallery: React.FC = observer(() => {
   const pics = pictureStore.pictures;
@@ -21,10 +23,13 @@ const Gallery: React.FC = observer(() => {
   }, [pics])
 
   return (
-    <div>
+    <GalleryCss>
       <h2>Picture List</h2>
       <ul>
-        {sims.length === 0 &&
+        {pictureStore.loading && <Loader />}
+        {!pictureStore.loading &&
+          sims.length === 0 &&
+          pics.length !== 0 &&
           pics.map((picture: any) => (
             <li key={picture[0]}>
               <img src={picture[2]} alt={picture[1]} width="300" />
@@ -37,8 +42,9 @@ const Gallery: React.FC = observer(() => {
               </button>
             </li>
           ))}
-        {
-          sims.map((sim: {url: string, id: string}) => (
+        {!pictureStore.loading &&
+          sims.length !== 0 &&
+          sims.map((sim: { url: string; id: string }) => (
             <li key={sim.id}>
               <img src={sim.url} alt={sim.id} width="300" />
               <button
@@ -50,12 +56,9 @@ const Gallery: React.FC = observer(() => {
               </button>
             </li>
           ))}
-        <div
-          ref={bottomRef}
-          style={{ position: "absolute", bottom: "0", height: "10px" }}
-        />
+        <div ref={bottomRef} style={{ height: "10px" }} />
       </ul>
-    </div>
+    </GalleryCss>
   );
 });
 

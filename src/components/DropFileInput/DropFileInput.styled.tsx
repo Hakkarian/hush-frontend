@@ -13,17 +13,12 @@ export const DropFileInputCss = styled.div`
 
     background-color: azure;
     border: 2px dashed black;
-    border-radius: 20px;
 
     transition: opacity 250ms ease-in-out, border-radius 250ms ease-in-out;
 
     &:hover {
       opacity: 0.6;
       border-radius: 10px 20px;
-    }
-
-    .dragover {
-      opacity: 0.6;
     }
   }
 
